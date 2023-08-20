@@ -92,7 +92,7 @@ https://github.com/hisenberggg/Kart.me_ecom_website/assets/65344317/b43806ac-a2a
 #### What is the python version requirement?
 
 Python >= 3.5
-if python is less than
+
 
 #### How to add products?
 
