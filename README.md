@@ -62,7 +62,9 @@ Start the server
 ## Demo
 
 
-https://github.com/hisenberggg/Kart.me_ecom_website/assets/65344317/511b7f30-46f8-42b3-b895-f4bc7f3a6e8e
+
+https://github.com/hisenberggg/Kart.me_ecom_website/assets/65344317/b43806ac-a2ae-4bc8-b0ee-37036ebc583c
+
 
 
 
