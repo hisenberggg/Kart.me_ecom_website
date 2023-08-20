@@ -62,8 +62,7 @@ Start the server
 ## Demo
 
 
-
-Uploading Kart_me_demo.mp4…
+https://github.com/hisenberggg/Kart.me_ecom_website/assets/65344317/511b7f30-46f8-42b3-b895-f4bc7f3a6e8e
 
 
 
