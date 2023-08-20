@@ -1,0 +1,107 @@
+{% extends "eshop/base.html" %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>
+        Cart
+    </h1>
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+          <tr>
+            <td><img src="http://127.0.0.1:8000/media/{{product.product_image}}" width="80"  class="rounded me-2" alt="{{product.name}}" /></td>
+            <td>{{product.name}}</td>
+            <td>
+              <div class="col-md-4">
+                <input type="number" value="1" name="quantity-{{product.price}}" class="form-control" required>
+              </div>
+            </td>
+            <td>Rs. {{product.price}}</td>
+            <td>
+                <form method="POST">{% csrf_token %}
+                    <input type="hidden" name="pid" value="{{product.id}}">
+                    <button type="submit" name="remove" class="btn btn-primary">X</button>
+                </form>
+            </td>
+            
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="alert alert-dark" role="alert">
+        <h3>
+            <div class="container text-center ">
+                <div class="row align-items-start">
+                  <div class="col col-sm-4">
+                    Cart total:&nbsp;
+                  </div>
+                  <div class="col col-sm-4">
+                    <span style="align-items: end;" class="badge bg-secondary">Rs. <div id="total">{{cart_total}}</div></span>
+                  </div><br>
+                  <div class="col col-sm-4">
+                    <!-- <form action="{% url 'orders' %}" method="POST">{% csrf_token %} -->
+                        <button type="button" name="checkout" class="btn btn-outline-primary">Checkout</button>
+                    <!-- </form> -->
+                  </div>
+                </div>
+            </div>
+        </h3>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('input').keyup(function(e) {
+       console.log(this.value,this.name.split("-")[1])
+       var total_cart = 0;
+       $('input[name^="quantity"]').each(function() {
+          total_cart += $(this).val()*this.name.split("-")[1]
+        });
+      //  $('div#total').text(this.value*this.name.split("-")[1]);
+       $('div#total').text(total_cart);
+
+    });
+    $(document).ready(function() {
+      $('button[name="checkout"]').click(function() {
+            var inputQ = [];
+            var empty = false;
+            $('input[name^="quantity"]').each(function() {
+              if($(this).val()==""){
+                alert("quantity is empty");
+                empty=true
+                return false
+              }
+              inputQ.push($(this).val());
+            });
+            if(empty==true){
+                return false
+              }
+            console.log(inputQ)
+            $.ajax({
+                type: "POST",
+                url: "/checkout/",
+                // dataType : "json",
+                data: {quantity:inputQ},
+                success: function(data) {
+                    console.log("checkout done",)
+                    window.location = "/orders/";
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

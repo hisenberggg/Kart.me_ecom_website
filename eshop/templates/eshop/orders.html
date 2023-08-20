@@ -1,0 +1,44 @@
+{% extends "eshop/base.html" %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>
+        Orders
+    </h1>
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <!-- <th scope="col"></th> -->
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Date of purchase</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+          <tr>
+            <!-- <td><img src="http://127.0.0.1:8000/media/{{order.product.product_image}}" width="80"  class="rounded me-2" alt="{{product.name}}" /></td> -->
+            <td>{{order.product.name}}</td>
+            <td>
+              {{order.quantity}}
+            </td>
+            <td>{{order.date_of_purchase}}</td>
+            <td>
+                <form method="POST">{% csrf_token %}
+                    <input type="hidden" name="oid" value="{{order.id}}">
+                    <button type="submit" name="cancel" class="btn btn-primary">Cancel</button>
+                </form>
+            </td>
+            
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

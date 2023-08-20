@@ -1,0 +1,47 @@
+{% extends "userauth/base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>
+        Profile
+    </h1>
+</div>
+<div class="container">
+    {% if user.is_authenticated %} 
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <img src="http://127.0.0.1:8000/media/{{profile.image}}" class="rounded-circle border-light-subtle shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 200px;" alt="Avatar">
+    </div><br>
+    <div class="container">        
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <td>First name</td>
+                    <td>{{user.first_name}}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>{{user.last_name}}</td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td>{{user.username}}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{user.email}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <br>
+    
+    {% endif %}
+</div>
+{% endblock %}

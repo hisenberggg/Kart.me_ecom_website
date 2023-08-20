@@ -1,0 +1,74 @@
+{% extends "eshop/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>
+        Home
+    </h1>
+</div>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card">
+                <a href="{% url 'product_info' product.id %}" style="text-decoration:none;color: black;">
+                    <img src="http://127.0.0.1:8000/media/{{product.product_image}}" height="200" class="card-img-top" alt="{{product.name}}" />
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <h5 class="card-title">Rs. {{product.price}}</h5>
+                        <input type="hidden" value="{{product.id}}">
+                        <p class="card-text">
+                            {{product.description}}
+                        </p>
+                    </div>
+                </a>
+                <div class="container">
+                    <button type="button" value="{{product.id}}" class="btn btn-outline-primary">Add to cart</button>
+                </div><br>
+            </div>
+        </div>
+
+        <!-- toast  -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toast{{product.id}}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                
+                <strong class="me-auto">Kart.me</strong>
+                <small class="text-body-secondary">now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <img src="http://127.0.0.1:8000/media/{{product.product_image}}" width="80" class="rounded me-2" alt="{{product.name}}">
+                    {{product.name}} added to cart
+                </div>
+            </div>
+        </div>
+        <!-- toast  -->
+        {% endfor %}
+    </div>
+</div><br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("button").click(function() {
+            var pid = $(this).val();
+            console.log("clicked button")
+            console.log(pid)
+            $.ajax({
+                type: "POST",
+                url: "/add_to_cart/",
+                data: {product_id: pid},
+                success: function(data) {
+                    // $("#result").html(data);
+                    const toastLiveExample = document.getElementById('toast'+pid)
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                    toastBootstrap.show()
+                    console.log("data sent")
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

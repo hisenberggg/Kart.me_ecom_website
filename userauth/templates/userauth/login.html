@@ -1,0 +1,41 @@
+{% extends "userauth/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>
+        Login
+    </h1>
+</div>
+<div class="container">
+    <form method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="exampleInputtext">Username</label>
+            <input type="text" name="username" class="form-control" id="exampleInputtext" aria-describedby="textHelp" placeholder="Enter username" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" required>
+        </div>
+
+        {% if messages %}
+        <br>
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div> 
+            {% endfor %}
+        <br>
+        {% endif %}
+
+        <div class="input-group mb-3">
+            <p>Not a user? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+</div>
+{% endblock %}
+
