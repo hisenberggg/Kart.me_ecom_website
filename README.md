@@ -1,12 +1,23 @@
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
 # kart.me
 
 It is a template for e-com website
 
 
+## Table of contents
+
+- [Run locally](#runlocally)
+- [Demo](#demo)
+- [Author](#author)
+- [FAQ](#faq)
 
 
-## Run Locally
+## Run Locally <a id="runlocally"></a>
 
 Clone the project
 
@@ -59,7 +70,7 @@ Start the server
 
 
 
-## Demo
+## Demo <a id="demo"></a>
 
 
 
@@ -69,12 +80,14 @@ https://github.com/hisenberggg/Kart.me_ecom_website/assets/65344317/b43806ac-a2a
 
 
 
-## Authors
+## Author <a id="author"></a>
 
-- [@hisenberggg](https://github.com/hisenberggg/)
+  - Abhijeet Ringe <br>
+  [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abhijeet-ringe-3ab01a195/)
+  [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hisenberggg)
 
 
-## FAQ
+## FAQ  <a id="faq"></a>
 
 #### What is the python version requirement?
 
