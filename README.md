@@ -83,3 +83,6 @@ if python is less than
 
 Go to http://localhost:8000/admin and add products in the products database
 
+#### How to add/update product categories 
+
+Go to eshop/models.py and edit the CATEGORY_CHOICE tuple
