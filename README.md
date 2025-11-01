@@ -74,12 +74,7 @@ Start the server
 
 
 
-https://github.com/hisenberggg/Kart.me_ecom_website/assets/65344317/b43806ac-a2ae-4bc8-b0ee-37036ebc583c
-
-
-
-https://github.com/user-attachments/assets/84ce1270-70c5-4bc8-b79e-e34e726418e6
-
+https://github.com/user-attachments/assets/ebcd00e6-54de-4671-a311-d98108b82685
 
 
 
