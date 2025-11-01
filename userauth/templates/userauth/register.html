@@ -3,42 +3,49 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>
-        Register
-    </h1>
-</div>
-<div class="container">
-    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="form-group">
-            <label for="exampleInputfn">First name</label>
-            <input type="text" name="fname" class="form-control" id="exampleInputfn" aria-describedby="textHelp" placeholder="Enter First Name" required>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="card shadow-sm p-4">
+                <h1 class="text-center mb-4">Register</h1>
+                <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="mb-3">
+                        <label for="exampleInputfn" class="form-label">First name</label>
+                        <input type="text" name="fname" class="form-control" id="exampleInputfn" aria-describedby="textHelp" placeholder="Enter First Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputln" class="form-label">Last name</label>
+                        <input type="text" name="lname" class="form-control" id="exampleInputln" aria-describedby="textHelp" placeholder="Enter Last Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputtext" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="exampleInputtext" aria-describedby="textHelp" placeholder="Enter username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputGroupFile02" class="form-label">Profile picture</label>
+                        <input type="file" name="profile_pic" class="form-control" id="inputGroupFile02">
+                    </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    <p class="mb-3 text-center">Already a user? <a href="{% url 'login' %}">Login</a></p>
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="exampleInputln">Last name</label>
-            <input type="text" name="lname" class="form-control" id="exampleInputln" aria-describedby="textHelp" placeholder="Enter Last Name" required>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputtext">Username</label>
-            <input type="text" name="username" class="form-control" id="exampleInputtext" aria-describedby="textHelp" placeholder="Enter username" required>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
-        </div>
-        <div class="input-group mb-3">
-            <input type="file" name="profile_pic" class="form-control" id="inputGroupFile02">
-            <label class="input-group-text" for="inputGroupFile02">Upload profile pic</label>
-        </div>
-        <div class="input-group mb-3">
-            <p>Already a user <a href="{% url 'login' %}">Login</a></p>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
 </div>
 {% endblock %}

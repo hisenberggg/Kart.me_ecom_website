@@ -1,15 +1,43 @@
 from django.shortcuts import render, redirect
-from .models import Product, Order
+from .models import Product, Order, CATEGORY_CHOICES
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.db.models import Min, Max
 # Create your views here.
 @login_required(login_url="/auth/login/")
 def home(request):
     products = Product.objects.all()
-    # print(products[0].product_image)
+    selected_category = request.GET.get("category", "")
+    min_price = request.GET.get("min_price", "")
+    max_price = request.GET.get("max_price", "")
+
+    if selected_category and selected_category != "all":
+        products = products.filter(category=selected_category)
+
+    try:
+        if min_price:
+            min_price_value = int(min_price)
+            products = products.filter(price__gte=min_price_value)
+    except ValueError:
+        min_price = ""
+
+    try:
+        if max_price:
+            max_price_value = int(max_price)
+            products = products.filter(price__lte=max_price_value)
+    except ValueError:
+        max_price = ""
+
+    price_bounds = Product.objects.aggregate(min_price=Min("price"), max_price=Max("price"))
+
     context = {
-        "products":products
+        "products": products,
+        "category_choices": CATEGORY_CHOICES,
+        "selected_category": selected_category,
+        "min_price": min_price,
+        "max_price": max_price,
+        "price_bounds": price_bounds,
     }
     return render(request,"eshop/home.html",context=context)
 

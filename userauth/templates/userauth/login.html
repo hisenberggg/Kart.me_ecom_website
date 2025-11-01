@@ -3,39 +3,36 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>
-        Login
-    </h1>
-</div>
-<div class="container">
-    <form method="POST">{% csrf_token %}
-        <div class="form-group">
-            <label for="exampleInputtext">Username</label>
-            <input type="text" name="username" class="form-control" id="exampleInputtext" aria-describedby="textHelp" placeholder="Enter username" required>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" required>
-        </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+            <div class="card shadow-sm p-4">
+                <h1 class="text-center mb-4">Login</h1>
+                <form method="POST">{% csrf_token %}
+                    <div class="mb-3">
+                        <label for="exampleInputtext" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="exampleInputtext" aria-describedby="textHelp" placeholder="Enter username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" required>
+                    </div>
 
-        {% if messages %}
-        <br>
-            {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
-            </div> 
-            {% endfor %}
-        <br>
-        {% endif %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
 
-        <div class="input-group mb-3">
-            <p>Not a user? <a href="{% url 'register' %}">Register</a></p>
+                    <p class="mb-3 text-center">Not a user? <a href="{% url 'register' %}">Register</a></p>
+
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
         </div>
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <br>
+    </div>
 </div>
 {% endblock %}
 

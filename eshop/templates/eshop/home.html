@@ -3,17 +3,40 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>
-        Home
-    </h1>
-</div>
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-4 g-4">
+<div class="container py-4">
+    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+        <h1 class="mb-0">Home</h1>
+        <form method="get" class="row gy-2 gx-3 align-items-end">
+            <div class="col-12 col-sm-6 col-md-auto">
+                <label for="category" class="form-label mb-1">Category</label>
+                <select name="category" id="category" class="form-select">
+                    <option value="all" {% if selected_category == "" or selected_category == "all" %}selected{% endif %}>All categories</option>
+                    {% for value, label in category_choices %}
+                    <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-6 col-md-auto">
+                <label for="min_price" class="form-label mb-1">Min price</label>
+                <input type="number" name="min_price" id="min_price" class="form-control" min="{{ price_bounds.min_price|default:0 }}" max="{{ price_bounds.max_price|default:"" }}" value="{{ min_price }}" placeholder="{{ price_bounds.min_price|default:0 }}">
+            </div>
+            <div class="col-6 col-md-auto">
+                <label for="max_price" class="form-label mb-1">Max price</label>
+                <input type="number" name="max_price" id="max_price" class="form-control" min="{{ price_bounds.min_price|default:0 }}" max="{{ price_bounds.max_price|default:"" }}" value="{{ max_price }}" placeholder="{{ price_bounds.max_price|default:"" }}">
+            </div>
+            <div class="col-12 col-sm-auto d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100">Apply</button>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary w-100">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    {% if products %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         {% for product in products %}
         <div class="col">
-            <div class="card">
-                <a href="{% url 'product_info' product.id %}" style="text-decoration:none;color: black;">
+            <div class="card h-100">
+                <a href="{% url 'product_info' product.id %}" class="text-decoration-none text-dark">
                     <img src="http://127.0.0.1:8000/media/{{product.product_image}}" height="200" class="card-img-top" alt="{{product.name}}" />
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
@@ -24,9 +47,9 @@
                         </p>
                     </div>
                 </a>
-                <div class="container">
-                    <button type="button" value="{{product.id}}" class="btn btn-outline-primary">Add to cart</button>
-                </div><br>
+                <div class="px-3 pb-3">
+                    <button type="button" value="{{product.id}}" class="btn btn-outline-primary w-100 add-to-cart-btn">Add to cart</button>
+                </div>
             </div>
         </div>
 
@@ -48,24 +71,26 @@
         <!-- toast  -->
         {% endfor %}
     </div>
-</div><br>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        No products match the selected filters.
+    </div>
+    {% endif %}
+</div>
+<br>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        $("button").click(function() {
+        $(".add-to-cart-btn").on("click", function() {
             var pid = $(this).val();
-            console.log("clicked button")
-            console.log(pid)
             $.ajax({
                 type: "POST",
                 url: "/add_to_cart/",
                 data: {product_id: pid},
                 success: function(data) {
-                    // $("#result").html(data);
-                    const toastLiveExample = document.getElementById('toast'+pid)
-                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                    toastBootstrap.show()
-                    console.log("data sent")
+                    const toastLiveExample = document.getElementById('toast' + pid);
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+                    toastBootstrap.show();
                 }
             });
         });
